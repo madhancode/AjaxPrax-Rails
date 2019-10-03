@@ -1,0 +1,43 @@
+<div class="card m-4" style="width: 18rem;" id="post_<%= post.id %>">
+    <div class="card-body">
+
+        <small class="text-muted float-right"><%= time_ago_in_words(post.created_at) %></small>
+        <h4 class="card-title"><%= post.title %></h4>
+        <p><%= post.body %></p><br />
+        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myeditpost_<%= post.id %>">
+            Edit
+        </button>
+        <%= link_to 'Delete', post, method: :delete, class: "btn btn-danger btn-sm", remote: true, data: { confirm: "Are You Sure..." } %>
+    </div>
+</div>
+
+<!-- modal popup -->
+<%= form_for(post, method: :put, remote: true) do |f| %>
+    <div class="modal fade" id="myeditpost_<%= post.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+
+                <div class="modal-body">
+                <div class="form-group">
+                    <%= f.label :title %>
+                    <%= f.text_field :title, class:"form-control post_title" %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :body %>
+                    <%= f.text_area :body, class:"form-control post_body" %>
+                </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <%= f.submit "Update", class:"btn btn-primary" %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>

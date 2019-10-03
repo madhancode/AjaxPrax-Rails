@@ -1,0 +1,7 @@
+$("#myeditpost_<%= @post.id %>").modal('hide');
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+
+$("#post_<%= @post.id %>").fadeOut(500);
+$("#post_<%= @post.id %>").replaceWith("<%= j render @post %>");
+$("#post_<%= @post.id %>").hide().fadeIn(500);
